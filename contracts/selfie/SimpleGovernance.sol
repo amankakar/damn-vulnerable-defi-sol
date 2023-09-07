@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import "../DamnValuableTokenSnapshot.sol";
-import "./ISimpleGovernance.sol"
-;
+import "./ISimpleGovernance.sol";
+import "hardhat/console.sol";
 /**
  * @title SimpleGovernance
  * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)
@@ -14,7 +14,7 @@ contract SimpleGovernance is ISimpleGovernance {
     DamnValuableTokenSnapshot private _governanceToken;
     uint256 private _actionCounter;
     mapping(uint256 => GovernanceAction) private _actions;
-
+ 
     constructor(address governanceToken) {
         _governanceToken = DamnValuableTokenSnapshot(governanceToken);
         _actionCounter = 1;
@@ -106,6 +106,7 @@ contract SimpleGovernance is ISimpleGovernance {
     function _hasEnoughVotes(address who) private view returns (bool) {
         uint256 balance = _governanceToken.getBalanceAtLastSnapshot(who);
         uint256 halfTotalSupply = _governanceToken.getTotalSupplyAtLastSnapshot() / 2;
+        console.log("balance" , balance);
         return balance > halfTotalSupply;
     }
 }

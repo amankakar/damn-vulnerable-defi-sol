@@ -55,7 +55,6 @@ contract SelfiePool is ReentrancyGuard, IERC3156FlashLender {
     ) external nonReentrant returns (bool) {
         if (_token != address(token))
             revert UnsupportedCurrency();
-
         token.transfer(address(_receiver), _amount);
         if (_receiver.onFlashLoan(msg.sender, _token, _amount, 0, _data) != CALLBACK_SUCCESS)
             revert CallbackFailed();
@@ -64,7 +63,7 @@ contract SelfiePool is ReentrancyGuard, IERC3156FlashLender {
             revert RepayFailed();
         
         return true;
-    }
+    } 
 
     function emergencyExit(address receiver) external onlyGovernance {
         uint256 amount = token.balanceOf(address(this));

@@ -95,7 +95,7 @@ await token.connect(player).approve(uniswapRouter.address , PLAYER_INITIAL_TOKEN
 
     after(async function () {
         /** SUCCESS CONDITIONS - NO NEED TO CHANGE ANYTHING HERE */
-        // Player has taken all tokens from the pool        
+        // Player has taken all tokens from the pool         
         expect(
             await token.balanceOf(lendingPool.address)
         ).to.be.eq(0);

